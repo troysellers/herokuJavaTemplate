@@ -1,5 +1,6 @@
 package com.force.aus;
 
+import java.util.Enumeration;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -17,41 +18,40 @@ public class AppProperties {
 	public static Properties appProperties;
 	
 	/**
-	 * Property file should be loaded as the first usage.
-	 * This method will attempt to determine if properties are configured by the application.properties 
-	 * file or if they are configured as environment variables (Heroku)
-	 * 
-	 * If environment configuration is detected, application.properties will not be loaded.
+	 * Load property file
 	 */
 	public static void loadProperties() {
 		
 		LOG = LoggerFactory.getLogger(AppProperties.class);
 		
-		if(System.getenv(DBASE_URL) == null) {
-			try {
-				appProperties = new Properties();
-				appProperties.load(AppProperties.class.getClassLoader().getResourceAsStream(PROPS_FILE));
-			} catch (Exception e) {
-				LOG.error("Caught exception loading properties - throwing runtime exception\n{}",e);
-				throw new RuntimeException(e);
+		try {
+			appProperties = new Properties();
+			appProperties.load(AppProperties.class.getClassLoader().getResourceAsStream(PROPS_FILE));
+			Enumeration<Object> en = appProperties.elements();
+			while(en.hasMoreElements()) {
+				LOG.info("Property [{}]", en.nextElement());
 			}
+		} catch (Exception e) {
+			LOG.error("Caught exception loading properties - throwing runtime exception\n{}",e);
+			throw new RuntimeException(e);
 		}
+
 		
 	}
 	
 	/**
-	 * Method will return String value of Property key.
-	 * Depending on configuration, will return either property found in application.properties file
-	 * or will return value of propKey from System Envirionment Variables.
+	 * Will look for environment variable first, then in application.properties
 	 * 
 	 * @param propKey
 	 * @return
 	 */
 	public static String getPropValue(String propKey) {
-		if(appProperties != null) 
-			return appProperties.getProperty(propKey);
 		
-		return System.getenv(propKey);
+		String value = System.getenv(propKey);
+		if(value != null && !value.isEmpty())
+			return value;
+		
+		return appProperties.getProperty(propKey);
 	}
 
 }
