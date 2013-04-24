@@ -21,12 +21,12 @@
 	</repositories>
 	
 	<dependencies>
-		<!-- Servlet API -->
+		<!-- Servlet API 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
-		</dependency>
+		</dependency>-->
 		<!-- Jetty -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
