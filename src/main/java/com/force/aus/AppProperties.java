@@ -27,9 +27,12 @@ public class AppProperties {
 		try {
 			appProperties = new Properties();
 			appProperties.load(AppProperties.class.getClassLoader().getResourceAsStream(PROPS_FILE));
-			Enumeration<Object> en = appProperties.elements();
-			while(en.hasMoreElements()) {
-				LOG.info("Property [{}]", en.nextElement());
+			
+			if(LOG.isInfoEnabled()) {
+				Enumeration<Object> en = appProperties.elements();
+				while(en.hasMoreElements()) {
+					LOG.info("Property [{}]", en.nextElement());
+				}
 			}
 		} catch (Exception e) {
 			LOG.error("Caught exception loading properties - throwing runtime exception\n{}",e);

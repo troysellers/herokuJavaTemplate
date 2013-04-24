@@ -8,7 +8,7 @@
 	<properties>
 		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jetty.version>8.1.8.v20121106</jetty.version>
+		<jetty.version>9.0.1.v20130408</jetty.version> <!-- 8.1.8.v20121106 -->
 	</properties>
 
 	<repositories>
