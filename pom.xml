@@ -80,6 +80,10 @@
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>jetty-server</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.mongodb</groupId>
+					<artifactId>mongo-java-driver</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
